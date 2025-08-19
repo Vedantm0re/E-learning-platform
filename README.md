@@ -25,7 +25,7 @@ This project serves as a base for building online learning platforms, portfolios
 
 ---
 
-## 📸 Preview
+## 🌐 Preview
 
 
 [Demo on Github](https://vedantm0re.github.io/E-learning-platform/)
