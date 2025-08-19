@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+  <title>Vedant More — E-Learning Hub</title>    
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />    
+  <style>    
+    :root{    
+      --bg:#0f1226; --bg-2:#10152b; --card:#141938; --text:#e9edf3; --muted:#aab3c2; --brand:#7cf9d2; --brand-2:#7aa2ff; --accent:#ffd166;    
+      --ring: 0 0 0 4px rgba(124,249,210,.2);    
+    }    
+    *{box-sizing:border-box;margin:0;padding:0}    
+    html,body{height:100%}    
+    body{    
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;    
+      color:var(--text); background: radial-gradient(1200px 800px at 10% 0%, #1a1f4a 0%, transparent 60%),    
+                          radial-gradient(1000px 600px at 100% 20%, #122037 0%, transparent 60%),    
+                          linear-gradient(180deg,var(--bg),var(--bg-2));    
+      overflow-x:hidden;    
+    }    
+    /* floating shapes */    
+    .blob{position:fixed; filter:blur(60px); opacity:.25; z-index:-1; animation:float 18s ease-in-out infinite alternate}    
+    .blob.one{width:360px;height:360px; background:conic-gradient(from 90deg,var(--brand),transparent 70%); left:-120px; top:-80px}    
+    .blob.two{width:420px;height:420px; background:radial-gradient(circle at 30% 30%,var(--brand-2),transparent 60%); right:-150px; top:10%}    
+    .blob.three{width:380px;height:380px; background:radial-gradient(circle at 60% 60%,#ff8fab,transparent 65%); left:10%; bottom:-120px}    
+    @keyframes float{to{transform:translateY(25px) translateX(15px)}}/* nav */    
+nav{ position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background:rgba(10,12,30,.6); border-bottom:1px solid rgba(255,255,255,.06)}    
+.nav-inner{ max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:12px 16px}    
+.brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}    
+.brand .dot{ width:10px; height:10px; border-radius:50%; background:linear-gradient(45deg,var(--brand),var(--brand-2)); box-shadow:0 0 24px var(--brand)}    
+.nav-links{ display:flex; gap:6px; flex-wrap:wrap }    
+.nav-links button{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.08); padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:600; transition:.25s}    
+.nav-links button:hover{ border-color:rgba(255,255,255,.2); transform:translateY(-1px)}    
+.nav-links button.active{ background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#0e132a; box-shadow:var(--ring)}    /* sections */
+section{ display:none; padding:56px 16px}
+section.active{ display:block; animation:fadeSlide .7s ease}
+@keyframes fadeSlide{ from{ opacity:0; transform: translateY(10px)} to{ opacity:1; transform:none}}
+.container{ max-width:1100px; margin:0 auto }
+
+/* hero */
+.hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center }
+.title{ font-size:clamp(28px,5vw,44px); line-height:1.05; font-weight:800 }
+.gradient{ background:linear-gradient(90deg,var(--brand) 0%, var(--accent) 40%, var(--brand-2) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent }
+.lead{ color:var(--muted); margin-top:10px }
+.cta{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap }
+.btn{ border:none; cursor:pointer; font-weight:700; padding:12px 16px; border-radius:12px; background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#0f1226; box-shadow:0 8px 24px rgba(122,162,255,.15); transition:.2s }
+.btn:hover{ transform:translateY(-1px) }
+.ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.12) }
+
+.hero-card{ background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; box-shadow: 0 10px 30px rgba(0,0,0,.25)}
+.hero-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px }
+.stat{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px; text-align:center }
+.stat h3{ font-size:22px }
+.stat p{ color:var(--muted); font-size:12px }
+
+/* cards */
+.grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px }
+.card{ background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 24px rgba(0,0,0,.2); transition:transform .25s, box-shadow .25s }
+.card:hover{ transform: translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.3) }
+.card h3{ font-size:18px; margin-bottom:6px; color:var(--brand)}
+.card p{ color:var(--muted); font-size:14px }
+
+/* circular progress */
+.progress-wrap{ display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:14px }
+.circle{ position:relative; width:180px; height:180px; margin:auto }
+.circle svg{ transform:rotate(-90deg) }
+.circle .track{ stroke: rgba(255,255,255,.08) }
+.circle .bar{ stroke: url(#grad); stroke-linecap:round; transition: stroke-dashoffset 1.2s ease }
+.circle .label{ position:absolute; inset:0; display:grid; place-items:center; text-align:center }
+.circle .label h4{ font-size:22px }
+.circle .label span{ color:var(--muted); font-size:12px }
+
+/* video youtube  */
+.video{ background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:12px }
+iframe{ width:100%; aspect-ratio:16/9; border:0; border-radius:12px }
+
+/* quiz */
+.quiz{ background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; max-width:680px; margin:0 auto }
+.quiz h2{ margin-bottom:8px }
+.options{ display:grid; gap:10px; margin:12px 0 }
+.option{ background:#0f1433; border:1px solid rgba(255,255,255,.08); padding:12px; border-radius:12px; cursor:pointer; transition:.2s }
+.option:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,.18) }
+.option.correct{ outline:2px solid #21dd92; background: rgba(33,221,146,.08)}
+.option.wrong{ outline:2px solid #ff6b6b; background: rgba(255,107,107,.08)}
+.quiz .actions{ display:flex; gap:10px; flex-wrap:wrap }
+
+/* footer */
+footer{ text-align:center; color:var(--muted); padding:32px 16px }
+
+@media (max-width:860px){ .hero{ grid-template-columns:1fr; } }
+
+  </style>    
+</head>    
+<body>    
+  <div class="blob one"></div><div class="blob two"></div><div class="blob three"></div>    
+  <nav>    
+    <div class="nav-inner">    
+      <div class="brand"><span class="dot"></span> Vedant More • E-Learning</div>    
+      <div class="nav-links">    
+        <button class="active" onclick="showPage('home', this)">Home</button>    
+        <button onclick="showPage('courses', this)">Courses</button>    
+        <button onclick="showPage('progress', this)">Progress</button>    
+        <button onclick="showPage('video', this)">Video</button>    
+        <button onclick="showPage('quiz', this)">Quiz</button>    
+      </div>    
+    </div>    
+  </nav>    
+
+  <!-- HOME -->
+  <section id="home" class="active">    
+    <div class="container hero">    
+      <div>    
+        <h1 class="title">Hey, I'm <span class="gradient">Vedant More</span> 👋</h1>    
+        <p class="lead">Aspiring Web Developer • UI tinkerer • Curious mind. This is my compact learning hub with courses, progress rings, and a quick quiz to stay sharp.</p>    
+        <div class="cta">    
+          <button class="btn" onclick="showPage('courses', document.querySelector('.nav-links button:nth-child(2)'))">Browse Courses</button>    
+          <button class="btn ghost" onclick="showPage('progress', document.querySelector('.nav-links button:nth-child(3)'))">View Progress</button>    
+        </div>    
+        <div class="hero-stats">    
+          <div class="stat"><h3>12+</h3><p>Mini-projects</p></div>    
+          <div class="stat"><h3>3</h3><p>Active Tracks</p></div>    
+          <div class="stat"><h3>∞</h3><p>Learning</p></div>    
+        </div>    
+      </div>    
+      <div class="hero-card">    
+        <h3 style="color:var(--brand); margin-bottom:6px">Featured Projects</h3>    
+        <div class="grid">    
+          <div class="card"><h3>Weather App</h3><p>Minimal, accurate, snappy.</p></div>    
+          <div class="card"><h3>Portfolio v2</h3><p>Framer-motion vibes in vanilla.</p></div>    
+          <div class="card"><h3>Task Manager</h3><p>Keyboard-first productivity.</p></div>    
+          <div class="card"><h3>Blog (WIP)</h3><p>Static first, smart later.</p></div>    
+        </div>    
+      </div>    
+    </div>    
+  </section>    
+
+  <!-- COURSES -->
+  <section id="courses">    
+    <div class="container">    
+      <h2 class="title" style="font-size:28px">Available Courses</h2>    
+      <p class="lead">Hand-picked tracks to strengthen fundamentals.</p>    
+      <div class="grid" style="margin-top:14px">    
+        <article class="card"><h3>HTML & CSS Basics</h3><p>From semantic HTML to modern layout.</p></article>    
+        <article class="card"><h3>JavaScript Fundamentals</h3><p>ES6+, DOM, async patterns, and patterns.</p></article>    
+        <article class="card"><h3>Python for Beginners</h3><p>Syntax, data structures, and scripts.</p></article>    
+        <article class="card"><h3>React.js Crash Course</h3><p>Components, hooks, state and effects.</p></article>    
+      </div>    
+    </div>    
+  </section>    
+
+  <!-- PROGRESS -->
+  <section id="progress">    
+    <div class="container">    
+      <h2 class="title" style="font-size:28px">Your Learning Progress</h2>    
+      <p class="lead">Clean, good. Keep it up 💪🏻👍🏻</p>
+      <div class="progress-wrap" id="progressWrap">    
+        <div class="card" data-course="HTML & CSS" data-percent="78"></div>    
+        <div class="card" data-course="JavaScript" data-percent="46"></div>    
+        <div class="card" data-course="Python" data-percent="35"></div>    
+        <div class="card" data-course="React" data-percent="22"></div>    
+      </div>    
+    </div>    
+  </section>     
+
+  <!-- VIDEO -->
+  <section id="video">    
+    <div class="container">    
+      <h2 class="title" style="font-size:28px">Course Video: HTML & CSS Basics</h2>    
+      <div class="video" style="margin-top:12px">    
+        <iframe src="https://www.youtube.com/embed/mU6anWqZJcc" allowfullscreen></iframe>    
+      </div>    
+    </div>    
+  </section>    
+
+  <!-- QUIZ -->
+  <section id="quiz">    
+    <div class="container">    
+      <div class="quiz">    
+        <div id="start-screen">    
+          <h1 style="font-size:22px">IT Quiz</h1>    
+          <p class="lead">Select number of questions:</p>    
+          <select id="num-questions" style="margin:8px 0; background:#0f1433; color:var(--text); border:1px solid rgba(255,255,255,.12); padding:8px; border-radius:8px">    
+            <option value="5">5 Questions</option>    
+            <option value="10">10 Questions</option>    
+            <option value="15">15 Questions</option>    
+          </select>    
+          <div class="actions"><button class="btn" onclick="startQuiz()">Start Quiz</button></div>    
+          <p class="lead" style="margin-top:12px">
+            🔗 View source on 
+            <a href="https://github.com/Vedantm0re/IT-Quizz.git" target="_blank" style="color:var(--brand)">GitHub</a>
+          </p>
+        </div>
+
+        <div id="quiz-screen" style="display:none">    
+          <h2>Question <span id="question-number"></span></h2>    
+          <p id="question-text" class="lead"></p>    
+          <div class="options" id="options"></div>    
+          <p id="feedback" style="display:none"></p>    
+          <div class="actions">    
+            <button class="btn ghost" id="back-btn" onclick="goBack()">Back</button>    
+            <button class="btn" onclick="nextQuestion()">Next</button>    
+          </div>    
+        </div>    
+
+        <div id="result-screen" style="display:none">    
+          <h2>Quiz Completed!</h2>    
+          <p id="result-text" class="lead"></p>    
+          <div class="actions"><button class="btn" onclick="restartQuiz()">Restart</button></div>    
+        </div>
+      </div>    
+    </div>    
+  </section>  
+
+  <footer>    
+    Made with focus by Vedant More ✨    
+  </footer>
+
+  <script>
+  // ===== NAV =====
+  function showPage(id, btn){    
+    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));    
+    document.getElementById(id).classList.add('active');    
+    if(btn){    
+      document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));    
+      btn.classList.add('active');    
+    }    
+  }    
+
+  // ===== CIRCULAR PROGRESS =====
+  const wrap = document.getElementById('progressWrap');
+  const CIRC = 160, R = 70, C = 2 * Math.PI * R;
+
+  function ringEl(title, percent){
+    const clamped = Math.max(0, Math.min(100, Number(percent)||0));
+    const dash = C - (clamped / 100) * C;
+    const el = document.createElement('div');
+    el.className = 'circle';
+    el.innerHTML = `
+      <svg width="${CIRC}" height="${CIRC}" viewBox="0 0 ${CIRC} ${CIRC}">
+        <defs>
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()}"/>
+            <stop offset="100%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--brand-2').trim()}"/>
+          </linearGradient>
+        </defs>
+        <circle class="track" cx="80" cy="80" r="${R}" stroke-width="14" fill="none"/>
+        <circle class="bar"   cx="80" cy="80" r="${R}" stroke-width="14" fill="none" stroke-dasharray="${C}" stroke-dashoffset="${C}"/>
+      </svg>
+      <div class="label">
+        <div>
+          <h4>${clamped}%</h4>
+          <span>${title}</span>
+        </div>
+      </div>
+    `;
+    // animate on next tick
+    requestAnimationFrame(()=>{
+      const bar = el.querySelector('.bar');
+      bar.style.strokeDasharray = C;
+      bar.style.strokeDashoffset = dash;
+    });
+    return el;
+  }
+
+  function initRings(){
+    wrap.querySelectorAll('.card').forEach(card=>{
+      const title = card.dataset.course || 'Course';
+      const pct = card.dataset.percent || 0;
+      const ring = ringEl(title, pct);
+      card.innerHTML = '';
+      card.appendChild(ring);
+    })
+  }
+
+  // optional: re-animate when Progress page becomes active
+  const obs = new MutationObserver(()=>{
+    if(document.getElementById('progress').classList.contains('active')){
+      initRings();
+    }
+  });
+  obs.observe(document.body, { attributes:true, subtree:true, attributeFilter:['class']});
+  // run once on load for initial render if progress is default active
+  initRings();
+
+  // ===== QUIZ (no timer) =====
+  const questions = [
+    {question:"What does CPU stand for?",options:["Central Processing Unit","Computer Personal Unit","Core Processing Unit","Central Program Unit"],answer:"Central Processing Unit",feedback:"The CPU is the primary processing component."},
+    {question:"Which programming language is known as the 'language of the web'?",options:["Python","Java","JavaScript","C++"],answer:"JavaScript",feedback:"JavaScript adds interactivity to websites."},
+    {question:"What is the main function of RAM?",options:["Permanent storage","Temporary storage","Processing data","Cooling the system"],answer:"Temporary storage",feedback:"RAM temporarily stores data for quick access."},
+    {question:"What does HTML stand for?",options:["HyperText Markup Language","HighText Machine Language","HyperTool Multi Language","HomeText Markup Language"],answer:"HyperText Markup Language",feedback:"HTML structures web content."},
+    {question:"Which protocol is used to transfer web pages?",options:["FTP","HTTP","SMTP","TCP"],answer:"HTTP",feedback:"HTTP transfers web pages to browsers."},
+  ];
+  let current=0, score=0, selected=[], num=5, history=[];
+
+  function startQuiz(){
+    num = parseInt(document.getElementById('num-questions').value);
+    selected = [...questions].sort(()=>Math.random()-0.5).slice(0,num);
+    current = 0; score = 0; history = [];
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+    document.getElementById('feedback').style.display = 'none';
+    loadQ();
+  }
+  function loadQ(){
+    const q = selected[current];
+    document.getElementById('question-number').textContent = `${current+1} of ${num}`;
+    document.getElementById('question-text').textContent = q.question;
+    const opt = document.getElementById('options'); opt.innerHTML = '';
+    q.options.forEach(o=>{
+      const d = document.createElement('div'); d.className='option'; d.textContent=o; d.onclick=()=>choose(o,q);
+      opt.appendChild(d);
+    });
+    document.getElementById('feedback').style.display = 'none';
+    document.getElementById('back-btn').style.display = current===0 ? 'none' : 'inline-block';
+  }
+  function choose(sel,q){
+    const ok = sel===q.answer; if(ok) score++ ; else { const fb=document.getElementById('feedback'); fb.textContent=q.feedback; fb.style.display='block'; }
+    document.querySelectorAll('.option').forEach(o=>{
+      if(o.textContent===q.answer) o.classList.add('correct');
+      else if(o.textContent===sel && !ok) o.classList.add('wrong');
+      o.onclick=null;
+    });
+    history.push({q,sel,ok});
+  }
+  function nextQuestion(){
+    current++;
+    if(current<num) loadQ(); else finish();
+  }
+  function goBack(){
+    if(current>0){ current--; if(history[current]){ score -= history[current].ok?1:0; history.pop(); } loadQ(); }
+  }
+  function finish(){
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    document.getElementById('result-text').textContent = `You scored ${score} out of ${num}!`;
+  }
+  function restartQuiz(){
+    document.getElementById('result-screen').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'block';
+  }
+</script></body>
+</html>
